@@ -45,7 +45,7 @@ while reread != 'none':
                 TextToSpeech.say("Do you want me to read further?")
                 TextToSpeech.runAndWait()
                 readon =input("Do you want me to read further?")
-                print(readon)
+                #print(readon)
                 if  readon == "yes":
                     TextToSpeech.say("I'll repeat."+"."+"."+"."+"."+"."+"."+"."+dictionary[number + 2]+dictionary[number+3])
                     TextToSpeech.runAndWait()
@@ -56,9 +56,9 @@ while reread != 'none':
                     TextToSpeech.say("Reply in yes or no")
                     TextToSpeech.runAndWait()
             except:
-                print("Sorry, I'm not feeling well")
-                TextToSpeech.say("Sorry, I'm not feeling well")
+                TextToSpeech.say("I'll repeat."+"."+"."+"."+"."+"."+"."+"."+dictionary[number])
                 TextToSpeech.runAndWait()
+
 else:
     TextToSpeech.say("Thank you for using Text Dictator")
     TextToSpeech.runAndWait()
