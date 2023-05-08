@@ -32,10 +32,9 @@ TextToSpeech.runAndWait()
 
 
 reread = ''
-TextToSpeech.say("Which line do you want me to repeat?")
-TextToSpeech.runAndWait()
-
 while reread != 'none':
+    TextToSpeech.say("Which line do you want me to repeat?")
+    TextToSpeech.runAndWait()
     reread = input('Which line do you want me to repeat?')
     for number,sentence in list(dictionary.items()):
         if reread in sentence:
