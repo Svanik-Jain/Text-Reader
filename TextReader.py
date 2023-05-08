@@ -7,19 +7,15 @@ reader = PdfReader("C Programming Book.pdf")
 
 TextToSpeech = pyttsx3.init()
 
-page = reader.pages[int(input("which page number do you want?"))]
+
 TextToSpeech.say("which page number do you want?")
 TextToSpeech.runAndWait()
+page = reader.pages[int(input("which page number do you want?"))-1]
 
 
 Text = page.extract_text()
 line = Text.split("\n")
 print(Text)
-
-
-TextToSpeech.say(Text)
-TextToSpeech.runAndWait()
-
 
 
 dictionary = {}
@@ -50,14 +46,14 @@ while reread != 'none':
                 TextToSpeech.runAndWait()
                 readon =input("Do you want me to read further?")
                 print(readon)
-                if  readon == "yes":                                                                 #input("Do you want me to read further?").lower == 'yes'
+                if  readon == "yes":
                     TextToSpeech.say("I'll repeat."+"."+"."+"."+"."+"."+"."+"."+dictionary[number + 2]+dictionary[number+3])
                     TextToSpeech.runAndWait()
                 elif readon == "no":
                     TextToSpeech.say("Ok")
                     TextToSpeech.runAndWait()
                 else:
-                    TextToSpeech.say("Your message wasn't clear")
+                    TextToSpeech.say("Reply in yes or no")
                     TextToSpeech.runAndWait()
             except:
                 print("Sorry, I'm not feeling well")
