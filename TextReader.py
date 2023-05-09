@@ -2,7 +2,7 @@ from PyPDF2 import PdfReader
 
 import pyttsx3
 
-reader = PdfReader("C Programming Book.pdf")
+reader = PdfReader("<<PDF_name>>.pdf")
 
 
 TextToSpeech = pyttsx3.init()
