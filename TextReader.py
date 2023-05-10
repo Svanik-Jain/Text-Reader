@@ -1,34 +1,39 @@
+# DEPENDENCIES
 from PyPDF2 import PdfReader
-
+import signal
 import pyttsx3
 
+# VARIABLES
 reader = PdfReader("<<PDF_name>>.pdf")
-
-
 TextToSpeech = pyttsx3.init()
+TextToSpeech.setProperty("rate", 150)  # Slows down speed of dictator
+stop = False
 
+# THIS FUNCTION WILL ALLOW AS TO END THE CODE BY PRESSING CTRL+C
+def stopTheCode(signal,frame):
+    global stop
+    stop = True
+signal.signal(signal.SIGINT, stopTheCode)
 
-TextToSpeech.say("which page number do you want?")
+TextToSpeech.say("Which page number do you want to read?")
 TextToSpeech.runAndWait()
-page = reader.pages[int(input("which page number do you want?"))-1]
-
+page = reader.pages[int(input("Which page number do you want to read: "))-1]
 
 Text = page.extract_text()
-line = Text.split("\n")
-print(Text)
+lines = Text.split("\n")
 
+for line in lines:
+    TextToSpeech.say(line)
+    TextToSpeech.runAndWait()
+    if(stop):
+        break
 
 dictionary = {}
 i = 0
 for num in line:
     i += 1
     dictionary[i] = num
-#print(dictionary)
-    
-
-TextToSpeech.setProperty("rate", 150)  #slows down speed of dictator
-TextToSpeech.say(Text)
-TextToSpeech.runAndWait()
+print(dictionary)
 
 
 reread = ''
