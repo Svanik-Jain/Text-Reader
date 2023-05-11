@@ -9,7 +9,11 @@ from tkinter import filedialog as fd
 TextToSpeech = pyttsx3.init()
 TextToSpeech.setProperty("rate", 150)  # Slows down speed of dictator
 stop = False
+dictionary = {}
+i = 0
+reread = ''
 AskPath = Tk()
+
 AskPath.withdraw()
 file_path = fd.askopenfilename(
     title="SELECT PDF",
@@ -17,7 +21,6 @@ file_path = fd.askopenfilename(
     )
 AskPath.destroy()
 AskPath.mainloop()
-
 reader = PdfReader(file_path)
 
 # THIS FUNCTION WILL ALLOW AS TO END THE CODE BY PRESSING CTRL+C
@@ -39,15 +42,10 @@ for line in lines:
     if(stop):
         break
 
-dictionary = {}
-i = 0
 for num in line:
     i += 1
     dictionary[i] = num
-print(dictionary)
 
-
-reread = ''
 while reread != 'none':
     TextToSpeech.say("Which line do you want me to repeat?")
     TextToSpeech.runAndWait()
