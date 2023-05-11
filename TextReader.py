@@ -41,7 +41,7 @@ for line in lines:
 
 dictionary = {}
 i = 0
-for num in line:
+for num in lines:
     i += 1
     dictionary[i] = num
 print(dictionary)
