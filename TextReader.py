@@ -55,14 +55,14 @@ while reread != 'none':
     for number,sentence in list(dictionary.items()):
         if reread in sentence:
             try:
-                TextToSpeech.say("I'll repeat."+"."+"."+"."+"."+"."+"."+"."+dictionary[number]+dictionary[number+1])
+                TextToSpeech.say("I'll repeat."+"\n"+dictionary[number]+dictionary[number+1])
                 TextToSpeech.runAndWait()
                 TextToSpeech.say("Do you want me to read further?")
                 TextToSpeech.runAndWait()
                 readon =input("Do you want me to read further?")
                 #print(readon)
                 if  readon == "yes":
-                    TextToSpeech.say("I'll repeat."+"."+"."+"."+"."+"."+"."+"."+dictionary[number + 2]+dictionary[number+3])
+                    TextToSpeech.say("I'll repeat."+"\n"+dictionary[number + 2]+dictionary[number+3])
                     TextToSpeech.runAndWait()
                 elif readon == "no":
                     TextToSpeech.say("Ok")
@@ -71,7 +71,7 @@ while reread != 'none':
                     TextToSpeech.say("Reply in yes or no")
                     TextToSpeech.runAndWait()
             except:
-                TextToSpeech.say("I'll repeat."+"."+"."+"."+"."+"."+"."+"."+dictionary[number])
+                TextToSpeech.say("I'll repeat."+"\n"+dictionary[number])
                 TextToSpeech.runAndWait()
     if(stop):
         break
