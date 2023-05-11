@@ -17,6 +17,7 @@ file_path = fd.askopenfilename(
     )
 AskPath.destroy()
 AskPath.mainloop()
+reread = ''
 
 reader = PdfReader(file_path)
 
@@ -47,7 +48,6 @@ for num in lines:
 print(dictionary)
 
 
-reread = ''
 while reread != 'none':
     TextToSpeech.say("Which line do you want me to repeat?")
     TextToSpeech.runAndWait()
