@@ -17,6 +17,7 @@ file_path = fd.askopenfilename(
     )
 AskPath.destroy()
 AskPath.mainloop()
+
 reread = ''
 
 reader = PdfReader(file_path)
