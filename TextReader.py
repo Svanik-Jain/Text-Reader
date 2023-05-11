@@ -2,12 +2,23 @@
 from PyPDF2 import PdfReader
 import signal
 import pyttsx3
+from tkinter import *
+from tkinter import filedialog as fd
 
 # VARIABLES
-reader = PdfReader("<<PDF_name>>.pdf")
 TextToSpeech = pyttsx3.init()
 TextToSpeech.setProperty("rate", 150)  # Slows down speed of dictator
 stop = False
+AskPath = Tk()
+AskPath.withdraw()
+file_path = fd.askopenfilename(
+    title="SELECT PDF",
+    filetypes=(("PDF files", "*.pdf"),)
+    )
+AskPath.destroy()
+AskPath.mainloop()
+
+reader = PdfReader(file_path)
 
 # THIS FUNCTION WILL ALLOW AS TO END THE CODE BY PRESSING CTRL+C
 def stopTheCode(signal,frame):
@@ -62,6 +73,8 @@ while reread != 'none':
             except:
                 TextToSpeech.say("I'll repeat."+"."+"."+"."+"."+"."+"."+"."+dictionary[number])
                 TextToSpeech.runAndWait()
+    if(stop):
+        break
 
 else:
     TextToSpeech.say("Thank you for using Text Dictator")
