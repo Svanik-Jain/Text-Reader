@@ -14,6 +14,9 @@ i = 0
 reread = ''
 AskPath = Tk()
 
+TextToSpeech.say("Select PDF")
+TextToSpeech.runAndWait()
+
 AskPath.withdraw()
 file_path = fd.askopenfilename(
     title="SELECT PDF",
@@ -44,16 +47,17 @@ for line in lines:
     if(stop):
         break
 
-for num in line:
+for num in lines:
     i += 1
     dictionary[i] = num
+print(dictionary)
 
 while reread != 'none':
     TextToSpeech.say("Which line do you want me to repeat?")
     TextToSpeech.runAndWait()
     reread = input('Which line do you want me to repeat?')
     for number,sentence in list(dictionary.items()):
-        if reread in sentence:
+        if reread.lower() in sentence.lower():
             try:
                 TextToSpeech.say("I'll repeat."+"\n"+dictionary[number]+dictionary[number+1])
                 TextToSpeech.runAndWait()
@@ -73,8 +77,7 @@ while reread != 'none':
             except:
                 TextToSpeech.say("I'll repeat."+"\n"+dictionary[number])
                 TextToSpeech.runAndWait()
-    if(stop):
-        break
+
 
 else:
     TextToSpeech.say("Thank you for using Text Dictator")
