@@ -134,7 +134,11 @@ def repeat():
     while reread != 'none':
         TextToSpeech.say("Which line do you want me to repeat?")
         TextToSpeech.runAndWait()
-        reread = input('Which line do you want me to repeat?')
+        with sr.Microphone() as source:
+                r.adjust_for_ambient_noise(source)
+                print("Listening...")
+                audio = r.listen(source)
+        reread = r.recognize_google(audio)
         for number,sentence in list(dictionary.items()):
             if reread.lower() in sentence.lower():
                 try:
@@ -142,7 +146,11 @@ def repeat():
                     TextToSpeech.runAndWait()
                     TextToSpeech.say("Do you want me to read further?")
                     TextToSpeech.runAndWait()
-                    readon =input("Do you want me to read further?")
+                    with sr.Microphone() as source:
+                        r.adjust_for_ambient_noise(source)
+                        print("Listening...")
+                        audio = r.listen(source)
+                    readon = r.recognize_google(audio)
                     if  readon == "yes":
                         TextToSpeech.say("I'll repeat."+"\n"+dictionary[number + 2]+dictionary[number+3])
                         TextToSpeech.runAndWait()
