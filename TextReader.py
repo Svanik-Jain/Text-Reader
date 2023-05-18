@@ -102,6 +102,12 @@ i = 0
 reread = ''
 AskPath = Tk()
 r= sr.Recognizer()
+def listening():
+        with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source)
+        print("Listening...")
+        audio = r.listen(source)
+        return r.recognize_google(audio)
 
 TextToSpeech.say("Select PDF")
 TextToSpeech.runAndWait()
@@ -151,9 +157,9 @@ def repeat():
                     TextToSpeech.runAndWait()
 
 while True:
-    TextToSpeech.say("Enter the page number you want me to read")
+    TextToSpeech.say("Speak the page number you want me to read")
     TextToSpeech.runAndWait()
-    page = reader.pages[(int(input("Enter the Page number you want me to read: ")))-1]
+    page = reader.pages[int(listening())-1] 
     text = page.extract_text()
     print(text)
     lines = text.split("\n")
