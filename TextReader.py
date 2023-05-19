@@ -127,7 +127,7 @@ signal.signal(signal.SIGINT, stopTheCode)
 
 def repeat():
     global reread
-    while reread != 'none':
+    while reread != 'none' or reread != 'no':
         TextToSpeech.say("Which line do you want me to repeat?")
         TextToSpeech.runAndWait()
         with sr.Microphone() as source:
@@ -163,6 +163,7 @@ def repeat():
                 except:
                     TextToSpeech.say("I'll repeat."+"\n"+dictionary[number])
                     TextToSpeech.runAndWait()
+    print("You said, "+reread)
 
 while True:
     TextToSpeech.say("Speak the page number you want me to read")
@@ -176,19 +177,19 @@ while True:
         try:
             if heard == 'Tu':
                 heard = 2
-                page = reader.pages[int(heard)] 
+                page = reader.pages[int(heard)-1] 
                 print('You said,',heard)
                 gotpage = 'got'
             elif heard == 'free' or heard == 'tree':
                 heard = 3
-                page = reader.pages[int(heard)] 
+                page = reader.pages[int(heard)-1] 
                 print('You said,',heard)
                 gotpage = 'got'
             elif heard == 'no':
                     TextToSpeech.say("Ok")
                     TextToSpeech.runAndWait() 
             elif int(heard) < len(reader.pages):
-                page = reader.pages[int(heard)] 
+                page = reader.pages[int(heard)-1] 
                 print('You said,',heard)
                 gotpage = 'got'
             else:
@@ -209,7 +210,6 @@ while True:
         TextToSpeech.runAndWait()
         if(stop):
             break
-    TextToSpeech.runAndWait()
 
     TextToSpeech.say("Do you want me to repeat?")
     TextToSpeech.runAndWait()
@@ -219,7 +219,7 @@ while True:
         print("Listening...")
         audio = r.listen(source)
 
-    while True:
+    while reread != 'none':
         heard = r.recognize_google(audio).lower()
         if heard == "yes":
             print("You said, "+heard)
