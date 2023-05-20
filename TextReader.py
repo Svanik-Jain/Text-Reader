@@ -104,6 +104,7 @@ AskPath = Tk()
 r= sr.Recognizer()
 gotpage = 'notgot'
 reread = ''
+stoploop = True
 
 #Opens window to select PDF file
 TextToSpeech.say("Select PDF")
@@ -127,7 +128,9 @@ signal.signal(signal.SIGINT, stopTheCode)
 
 def repeat():
     global reread
-    while reread != 'none' or reread != 'no':
+    global stoploop
+    stoploop = True
+    while stoploop:
         TextToSpeech.say("Which line do you want me to repeat?")
         TextToSpeech.runAndWait()
         with sr.Microphone() as source:
@@ -135,35 +138,40 @@ def repeat():
                 print("Listening...")
                 audio = r.listen(source)
         reread = r.recognize_google(audio)
-        for number,sentence in list(dictionary.items()):
-            if reread.lower() in sentence.lower():
-                try:
-                    print("You said, "+reread)
-                    TextToSpeech.say("I'll repeat."+"\n"+dictionary[number]+dictionary[number+1])
-                    TextToSpeech.runAndWait()
-                    TextToSpeech.say("Do you want me to read further?")
-                    TextToSpeech.runAndWait()
-                    with sr.Microphone() as source:
-                        r.adjust_for_ambient_noise(source)
-                        print("Listening...")
-                        audio = r.listen(source)
-                    readon = r.recognize_google(audio)
-                    if  readon == "yes":
-                        print("You said, yes")
-                        TextToSpeech.say("I'll repeat."+"\n"+dictionary[number + 2]+dictionary[number+3])
+        reread = reread.lower()
+        if reread != 'none' or reread != 'no' or reread != 'stop':
+                print("You said, "+reread)
+                stoploop = False #to find if this works
+                print(stoploop) #to find if this works
+        else:
+            for number,sentence in list(dictionary.items()):
+                if reread.lower() in sentence.lower():
+                    try:
+                        print("You said, "+reread)
+                        TextToSpeech.say("I'll repeat."+"\n"+dictionary[number]+dictionary[number+1])
                         TextToSpeech.runAndWait()
-                    elif readon == "no":
-                        print("You said, no")
-                        TextToSpeech.say("Ok")
+                        TextToSpeech.say("Do you want me to read further?")
                         TextToSpeech.runAndWait()
-                    else:
-                        print("You said, "+readon)
-                        TextToSpeech.say("Please reply in yes or no")
+                        with sr.Microphone() as source:
+                            r.adjust_for_ambient_noise(source)
+                            print("Listening...")
+                            audio = r.listen(source)
+                        readon = r.recognize_google(audio)
+                        if  readon == "yes":
+                            print("You said, yes")
+                            TextToSpeech.say("I'll repeat."+"\n"+dictionary[number + 2]+dictionary[number+3])
+                            TextToSpeech.runAndWait()
+                        elif readon == "no":
+                            print("You said, no")
+                            TextToSpeech.say("Ok")
+                            TextToSpeech.runAndWait()
+                        else:
+                            print("You said, "+readon)
+                            TextToSpeech.say("Please reply in yes or no")
+                            TextToSpeech.runAndWait()
+                    except:
+                        TextToSpeech.say("I'll repeat."+"\n"+dictionary[number])
                         TextToSpeech.runAndWait()
-                except:
-                    TextToSpeech.say("I'll repeat."+"\n"+dictionary[number])
-                    TextToSpeech.runAndWait()
-    print("You said, "+reread)
 
 while True:
     TextToSpeech.say("Speak the page number you want me to read")
@@ -175,7 +183,7 @@ while True:
             audio = r.listen(source)
             heard = r.recognize_google(audio)
         try:
-            if heard == 'Tu':
+            if heard.lower() == 'tu' or heard.lower() == 'do':
                 heard = 2
                 page = reader.pages[int(heard)-1] 
                 print('You said,',heard)
@@ -219,7 +227,7 @@ while True:
         print("Listening...")
         audio = r.listen(source)
 
-    while reread != 'none':
+    while stoploop:
         heard = r.recognize_google(audio).lower()
         if heard == "yes":
             print("You said, "+heard)
@@ -230,7 +238,7 @@ while True:
             repeat()         
         elif heard == "no":
             print("You said, "+heard)
-            TextToSpeech.say("Ok... No Problem. Thank You for using Text Dictator")
-            TextToSpeech.runAndWait()
             break
+    TextToSpeech.say("Ok... No Problem. Thank You for using Text Dictator")
+    TextToSpeech.runAndWait()
     break
