@@ -105,8 +105,7 @@ r= sr.Recognizer()
 gotpage = 'notgot'
 reread = ''
 stoploop = True
-gotpage = 'notgot'
-reread = ''
+
 
 #Opens window to select PDF file
 TextToSpeech.say("Select PDF")
