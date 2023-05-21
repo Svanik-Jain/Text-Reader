@@ -124,8 +124,10 @@ def repeat():
                 print("You said, "+reread)
                 stoploop = False
         else:
+            global readon
+            readon = 'yes'
             for number,sentence in list(dictionary.items()):
-                if reread.lower() in sentence.lower():
+                if reread.lower() in sentence.lower() and readon == 'yes':
                     try:
                         print("You said, "+reread)
                         TextToSpeech.say("I'll repeat."+"\n"+dictionary[number]+dictionary[number+1])
@@ -141,11 +143,11 @@ def repeat():
                             print("You said, yes")
                             TextToSpeech.say("I'll repeat."+"\n"+dictionary[number + 2]+dictionary[number+3])
                             TextToSpeech.runAndWait()
+                            readon = "no"
                         elif readon == "no":
                             print("You said, no")
                             TextToSpeech.say("Ok")
                             TextToSpeech.runAndWait()
-                            
                         else:
                             print("You said, "+readon)
                             TextToSpeech.say("Please reply in yes or no")
