@@ -84,7 +84,7 @@ import speech_recognition as sr
 
 # VARIABLES
 TextToSpeech = pyttsx3.init()
-TextToSpeech.setProperty("rate", 150)  # Slows down speed of dictator
+TextToSpeech.setProperty("rate", 150)  # SLOWS DOWN SPEED OF READER
 stop = False
 dictionary = {}
 i = 0
