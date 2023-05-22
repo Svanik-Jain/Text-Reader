@@ -70,6 +70,10 @@
 # else:
 #     TextToSpeech.say("Thank you for using Text Dictator")
 #     TextToSpeech.runAndWait()
+
+
+
+
 # DEPENDENCIES
 from PyPDF2 import PdfReader
 import signal
@@ -77,6 +81,7 @@ import pyttsx3
 from tkinter import *
 from tkinter import filedialog as fd
 import speech_recognition as sr
+
 # VARIABLES
 TextToSpeech = pyttsx3.init()
 TextToSpeech.setProperty("rate", 150)  # Slows down speed of dictator
@@ -90,7 +95,7 @@ gotpage = 'notgot'
 reread = ''
 stoploop = True
 
-#Opens window to select PDF file
+# OPENS FILE DIALOG TO SELECT PDF
 TextToSpeech.say("Select PDF")
 TextToSpeech.runAndWait()
 AskPath.withdraw()
@@ -101,12 +106,14 @@ file_path = fd.askopenfilename(
 AskPath.destroy()
 AskPath.mainloop()
 reader = PdfReader(file_path)
+
 # THIS FUNCTION WILL ALLOW AS TO END THE CODE BY PRESSING CTRL+C
 def stopTheCode(signal,frame):
     global stop
     stop = True
 signal.signal(signal.SIGINT, stopTheCode)
 
+# FUNCTION TO REPEAT LINES
 def repeat():
     global reread
     global stoploop
