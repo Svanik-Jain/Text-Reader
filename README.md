@@ -42,6 +42,7 @@ Python
 Pyttsx3
 PyPDF2
 
+
 ### Installation
 
 1. Install python from https://www.python.org/downloads/
@@ -52,6 +53,10 @@ PyPDF2
 3. Install PyPDF2
    ```sh
    pip install PyPDF2
+   ```
+4. Install SpeechRecognition
+   ```sh
+   pip install SpeechRecognition
    ```
 
 ## Usage
