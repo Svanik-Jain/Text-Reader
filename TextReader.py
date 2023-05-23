@@ -176,6 +176,7 @@ while True:
             if heard.lower() == 'tu' or heard.lower() == 'do':
                 heard = 2
                 page = reader.pages[int(heard)-1] 
+                text = page.extract_text()
                 print('You said,',heard)
                 gotpage = 'got'
             elif heard == 'free' or heard == 'tree':
@@ -199,7 +200,52 @@ while True:
             TextToSpeech.say("Please say a number")
             TextToSpeech.runAndWait()
             print('You said,',heard)
-    text = page.extract_text()
+    TextToSpeech.say("Do you want me to repeat two words at a time?")
+    TextToSpeech.runAndWait()
+    with sr.Microphone() as source:
+            r.adjust_for_ambient_noise(source)
+            print("Listening...")
+            audio = r.listen(source)
+            heard = r.recognize_google(audio)
+    if heard == "yes":
+        print("You said 'yes'")
+ #FUNCTION TO DICTATE
+        splitted_words = text.split()
+        if len(splitted_words)%2 == 1:
+            splitted_words += ' '
+        word_pairs = {}
+        p = 0
+        list_pairs = []
+
+        for word in splitted_words:
+            p += 1
+            if p % 2 == 1:
+                list_pairs.append(word)
+                print(list_pairs)
+            else:
+                list_pairs.append(word)
+                print(list_pairs)
+                word_pairs[p//2] = list_pairs
+                list_pairs = []
+
+        def repeatwice(dictionary):
+            for number,pair in dictionary.items():
+                TextToSpeech.say(pair[0])
+                TextToSpeech.runAndWait()
+                TextToSpeech.say(pair[1])
+                TextToSpeech.runAndWait()
+                TextToSpeech.say(pair[0])
+                TextToSpeech.runAndWait()
+                TextToSpeech.say(pair[1])
+                TextToSpeech.runAndWait()
+                if (stop):
+                    break
+        if input("Do you want me to dictate?: (yes or no)").lower() == 'yes':
+            TextToSpeech.setProperty("rate", 200)  
+            repeatwice(word_pairs)
+        else:
+            print("You said 'no'")
+
     #print(text)
     lines = text.split("\n")
     for line in lines:
