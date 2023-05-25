@@ -70,9 +70,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Acknowledgments
 Special thanks to our contributers:
 Svanik Jain
-Aadi Nigam
-Sanidhya Gupta
-Maulik Gupta
-Supraj
-Vaibhav Sai
+Aadi Nigam,
+Sanidhya Gupta,
+Maulik Gupta,
+Supraj,
+Vaibhav Sai,
 Sidharth Ganguly
