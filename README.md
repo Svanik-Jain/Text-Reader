@@ -22,7 +22,7 @@ Text reader is a tool created for the purpose of the reading text out loud by a 
 
 ## Built With
 
-This is project is built with python. Various modules of python like pyttsx3, pypdf2, SpeechRecognition were used.
+This is project is built with python. Various modules of python like pyttsx3, pypdf2, speechrecognition were used.
 
 ## Prerequisites
 1) Python
