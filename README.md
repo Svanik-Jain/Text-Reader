@@ -16,7 +16,7 @@
 </details>
 
 ## About The Project
-We are a bunch of school students who wanted to make a project in our holidays. We decided to make this project. It is very interesting project.
+We are a bunch of school students who wanted to make a project in our holidays. We decided to make this project. It is a very interesting project.
 Text reader is a tool created for the purpose of the reading text out loud by a speech input. It has the ability to reread every individual line or even reread every pair of words for easy dictation.
 
 
