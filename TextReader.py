@@ -275,7 +275,7 @@ while readpages:
                 i += 1
                 dictionary[i] = num
             print(dictionary)
-            repeat()         #something may be wrong here
+            repeat()
         elif repet == "no":
             print("You said, "+repet)
             break
