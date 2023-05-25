@@ -48,7 +48,20 @@ This is project is built with python. Various modules of python like pyttsx3, py
 
 ## Usage
 
-
+1. Select a ```PDF File``` from your computer though a window which the code will open for you itself. The text reader will dictate from the file selected.
+2. Speak the page number you want the text reader to read. In case you do not want it to read any page, you can say ```stop``` or ```no``` or ```none```
+3. The text reader will ask you if you want it to read a pair of words twice or just simply read out the text.
+   i. In case you say yes, it will dictate two words twice as a pair and then move on to the next pair
+        Eg: If the text is ```This is some text```, it will read ```This is```,```This is```, ```some text```, ```some text```
+      This feature was added to make writing down text while dictation easy.
+   ii.In case you say no, it will simply read out the words from the page selected line by line.
+4. The text reader will read out the text based on your selection above.
+5. After reading the text, It will ask you if anything is to be repeated
+6. In case you say ```yes```, It will ask which line to be repeated
+7. On specifying few words (incomplete line), the reader will find the line you are referring to and read out the entire line along with the next one.
+8. After repeating, you can tell it to read further by saying ```yes``` so that it reads to more lines, or deny it.
+9. In case you do not want text reader to repeat anything, say ```stop``` or ```no``` or ```none```
+10. The text reader will say ```Thank you for using text dictator``` before closing
 
 ## Contributing
 
