@@ -69,7 +69,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Acknowledgments
 Special thanks to our contributers:
-Svanik Jain
+Svanik Jain,
 Aadi Nigam,
 Sanidhya Gupta,
 Maulik Gupta,
