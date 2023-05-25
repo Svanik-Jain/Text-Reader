@@ -1,8 +1,4 @@
 <h3 align="center">Text Reader</h3>
-  <p align="center">
-    An awesome text reader
-    <br />
-  </p>
 </div>
 <details>
   <summary>Table of Contents</summary>
