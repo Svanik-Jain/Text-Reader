@@ -6,7 +6,6 @@
     <li>
       <a href="#about-the-project">About The Project</a>
     </li>
-    <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#installation">Installation</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -18,7 +17,6 @@
 ## About The Project
 We are a bunch of school students who wanted to make a project in our holidays. We decided to make this project. It is a very interesting project.
 Text reader is a tool created for the purpose of the reading text out loud by a speech input. It has the ability to reread every individual line or even reread every pair of words for easy dictation.
-
 
 ## Built With
 
@@ -47,7 +45,6 @@ This is project is built with python. Various modules of python like pyttsx3, py
    ```
 
 ## Usage
-
 1. Select a ```PDF File``` from your computer though a window which the code will open for you itself. The text reader will dictate from the file selected.
 2. Speak the page number you want the text reader to read. In case you do not want it to read any page, you can say ```stop``` or ```no``` or ```none```
 3. The text reader will ask you if you want it to read a pair of words twice or just simply read out the text.
@@ -64,7 +61,6 @@ This is project is built with python. Various modules of python like pyttsx3, py
 10. The text reader will say ```Thank you for using text dictator``` before closing
 
 ## Contributing
-
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
