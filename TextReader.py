@@ -207,7 +207,7 @@ while readpages:
                 TextToSpeech.say("Please say a number")
                 TextToSpeech.runAndWait()
                 print('You said,',heard)
-    TextToSpeech.say("Do you want me to repeat two words at a time?")
+    TextToSpeech.say("Do you want me to repeat a pair of words twice?")
     TextToSpeech.runAndWait()
     with sr.Microphone() as source:
             r.adjust_for_ambient_noise(source)
@@ -215,7 +215,7 @@ while readpages:
             audio = r.listen(source)
             heard = r.recognize_google(audio)
     if heard == "yes":
-        print("You said 'yes'")
+        print("You said, yes")
  #FUNCTION TO DICTATE
         splitted_words = text.split()
         if len(splitted_words)%2 == 1:
@@ -247,19 +247,17 @@ while readpages:
                 TextToSpeech.runAndWait()
                 if (stop):
                     break
-        if input("Do you want me to dictate?: (yes or no)").lower() == 'yes':
-            TextToSpeech.setProperty("rate", 200)  
-            repeatwice(word_pairs)
-        else:
-            print("You said 'no'")
-
-    #print(text)
-    lines = text.split("\n")
-    for line in lines:
-        TextToSpeech.say(line)
-        TextToSpeech.runAndWait()
-        if(stop):
-            break
+        TextToSpeech.setProperty("rate", 200)  
+        repeatwice(word_pairs)
+    else:
+        print("You said, no")
+        global lines
+        lines = text.split("\n")
+        for line in lines:
+            TextToSpeech.say(line)
+            TextToSpeech.runAndWait()
+            if(stop):
+                break
     
     TextToSpeech.say("Do you want me to repeat?")
     TextToSpeech.runAndWait()
