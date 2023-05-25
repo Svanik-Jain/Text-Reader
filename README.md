@@ -15,16 +15,16 @@
   </ol>
 </details>
 
-### About The Project
+## About The Project
 We are a bunch of school students who wanted to make a project in our holidays. We decided to make this project. It is very interesting project.
 Text reader is a tool created for the purpose of the reading text out loud by a speech input. It has the ability to reread every individual line or even reread every pair of words for easy dictation.
 
 
-### Built With
+## Built With
 
 This is project is built with python. Various modules of python like pyttsx3, pypdf2, SpeechRecognition were used.
 
-### Prerequisites
+## Prerequisites
 1) Python
 2) Pyttsx3
 3) PyPDF2
