@@ -19,6 +19,8 @@ reread = ''
 stoploop = True
 
 # OPENS FILE DIALOG TO SELECT PDF
+TextToSpeech.say("Welcome to text dictator!")
+TextToSpeech.runAndWait()
 TextToSpeech.say("Select PDF")
 TextToSpeech.runAndWait()
 AskPath.withdraw()
@@ -85,6 +87,7 @@ def repeat():
                     except:
                         TextToSpeech.say("I'll repeat."+"\n"+dictionary[number])
                         TextToSpeech.runAndWait()
+
 #This is where the actual code starts.
 global readpages #While this is true, program keeps asking which page number is to be read
 readpages = True
@@ -182,6 +185,7 @@ while readpages:
             if(stop):
                 break
     #Repition part starts (repeat function was defined earlier)
+    
     TextToSpeech.say("Do you want me to repeat?")
     TextToSpeech.runAndWait()
     with sr.Microphone() as source:
