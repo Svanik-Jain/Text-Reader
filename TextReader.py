@@ -85,7 +85,7 @@ def repeat():
                     except:
                         TextToSpeech.say("I'll repeat."+"\n"+dictionary[number])
                         TextToSpeech.runAndWait()
-#This is where actually the processes start.
+#This is where the actual code starts.
 global readpages #While this is true, program keeps asking which page number is to be read
 readpages = True
 while readpages:
@@ -108,6 +108,7 @@ while readpages:
                 if heard.lower() == 'tu' or heard.lower() == 'do':
                     heard = 2
                     page = reader.pages[int(heard)-1] 
+                    global text
                     text = page.extract_text()
                     print('You said,',heard)
                     gotpage = 'got'
