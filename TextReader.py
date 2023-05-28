@@ -19,6 +19,8 @@ reread = ''
 stoploop = True
 
 # OPENS FILE DIALOG TO SELECT PDF
+TextToSpeech.say("Welcome to text dictator!")
+TextToSpeech.runAndWait()
 TextToSpeech.say("Select PDF")
 TextToSpeech.runAndWait()
 AskPath.withdraw()
@@ -41,7 +43,7 @@ def repeat():
     global reread
     global stoploop
     stoploop = True
-    while stoploop:
+    while stoploop: #while repetition part is not to be stopped, it keeps on running
         TextToSpeech.say("Which line do you want me to repeat?")
         TextToSpeech.runAndWait()
         with sr.Microphone() as source:
@@ -49,12 +51,12 @@ def repeat():
                 print("Listening...")
                 audio = r.listen(source)
         reread = r.recognize_google(audio)
-        reread = reread.lower()
+        reread = reread.lower() #whatever phrase is to be read again
         if reread == 'none' or reread == 'no' or reread == 'stop':
                 print("You said, "+reread)
-                stoploop = False
+                stoploop = False #ends this loop if user does not want anything to be re-read
         else:
-            global readon
+            global readon #In case 2 more lines are to be read out
             readon = 'yes'
             for number,sentence in list(dictionary.items()):
                 if reread.lower() in sentence.lower() and readon == 'yes':
@@ -85,11 +87,13 @@ def repeat():
                     except:
                         TextToSpeech.say("I'll repeat."+"\n"+dictionary[number])
                         TextToSpeech.runAndWait()
-global readpages
+
+#This is where the actual code starts.
+global readpages #While this is true, program keeps asking which page number is to be read
 readpages = True
 while readpages:
     global gotpage
-    gotpage = 'notgot'
+    gotpage = 'notgot' #If 'gotpage' is 'got', the program stops asking you which page number you want it to read
     while gotpage == 'notgot':
         TextToSpeech.say("Speak the page number you want me to read")
         TextToSpeech.runAndWait()
@@ -107,6 +111,7 @@ while readpages:
                 if heard.lower() == 'tu' or heard.lower() == 'do':
                     heard = 2
                     page = reader.pages[int(heard)-1] 
+                    global text
                     text = page.extract_text()
                     print('You said,',heard)
                     gotpage = 'got'
@@ -131,7 +136,7 @@ while readpages:
                 TextToSpeech.say("Please say a number")
                 TextToSpeech.runAndWait()
                 print('You said,',heard)
-    TextToSpeech.say("Do you want me to repeat a pair of words twice?")
+    TextToSpeech.say("Do you want me to repeat a pair of words twice?") #Dictation with pair of words read twice
     TextToSpeech.runAndWait()
     with sr.Microphone() as source:
             r.adjust_for_ambient_noise(source)
@@ -140,14 +145,12 @@ while readpages:
             heard = r.recognize_google(audio)
     if heard == "yes":
         print("You said, yes")
- #FUNCTION TO DICTATE
         splitted_words = text.split()
         if len(splitted_words)%2 == 1:
             splitted_words += ' '
         word_pairs = {}
         p = 0
         list_pairs = []
-
         for word in splitted_words:
             p += 1
             if p % 2 == 1:
@@ -158,7 +161,6 @@ while readpages:
                 print(list_pairs)
                 word_pairs[p//2] = list_pairs
                 list_pairs = []
-
         def repeatwice(dictionary):
             for number,pair in dictionary.items():
                 TextToSpeech.say(pair[0])
@@ -174,7 +176,7 @@ while readpages:
         TextToSpeech.setProperty("rate", 200)  
         repeatwice(word_pairs)
     else:
-        print("You said, no")
+        print("You said, no") #Dictation by reading the text line by line
         global lines
         lines = text.split("\n")
         for line in lines:
@@ -182,15 +184,14 @@ while readpages:
             TextToSpeech.runAndWait()
             if(stop):
                 break
+    #Repition part starts (repeat function was defined earlier)
     
     TextToSpeech.say("Do you want me to repeat?")
     TextToSpeech.runAndWait()
-    
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source)
         print("Listening...")
         audio = r.listen(source)
-
     while stoploop:
         repet = r.recognize_google(audio).lower()
         if repet == "yes":
