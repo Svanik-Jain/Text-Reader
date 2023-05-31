@@ -17,6 +17,7 @@ AskPath = Tk()
 r= sr.Recognizer()
 reread = ''
 stoploop = True
+text = ''
 
 # OPENS FILE DIALOG TO SELECT PDF
 TextToSpeech.say("Welcome to text dictator!")
@@ -111,7 +112,6 @@ while readpages:
                 if heard.lower() == 'tu' or heard.lower() == 'do':
                     heard = 2
                     page = reader.pages[int(heard)-1] 
-                    global text
                     text = page.extract_text()
                     print('You said,',heard)
                     gotpage = 'got'
@@ -136,74 +136,75 @@ while readpages:
                 TextToSpeech.say("Please say a number")
                 TextToSpeech.runAndWait()
                 print('You said,',heard)
-    TextToSpeech.say("Do you want me to repeat a pair of words twice?") #Dictation with pair of words read twice
-    TextToSpeech.runAndWait()
-    with sr.Microphone() as source:
+    if readpages:
+        TextToSpeech.say("Do you want me to repeat a pair of words twice?") #Dictation with pair of words read twice
+        TextToSpeech.runAndWait()
+        with sr.Microphone() as source:
+                r.adjust_for_ambient_noise(source)
+                print("Listening...")
+                audio = r.listen(source)
+                heard = r.recognize_google(audio)
+        if heard == "yes":
+            print("You said, yes")
+            splitted_words = text.split()
+            if len(splitted_words)%2 == 1:
+                splitted_words += ' '
+            word_pairs = {}
+            p = 0
+            list_pairs = []
+            for word in splitted_words:
+                p += 1
+                if p % 2 == 1:
+                    list_pairs.append(word)
+                    print(list_pairs)
+                else:
+                    list_pairs.append(word)
+                    print(list_pairs)
+                    word_pairs[p//2] = list_pairs
+                    list_pairs = []
+            def repeatwice(dictionary):
+                for number,pair in dictionary.items():
+                    TextToSpeech.say(pair[0])
+                    TextToSpeech.runAndWait()
+                    TextToSpeech.say(pair[1])
+                    TextToSpeech.runAndWait()
+                    TextToSpeech.say(pair[0])
+                    TextToSpeech.runAndWait()
+                    TextToSpeech.say(pair[1])
+                    TextToSpeech.runAndWait()
+                    if (stop):
+                        break
+            TextToSpeech.setProperty("rate", 200)  
+            repeatwice(word_pairs)
+        else:
+            print("You said, no") #Dictation by reading the text line by line
+            global lines
+            lines = text.split("\n")
+            for line in lines:
+                TextToSpeech.say(line)
+                TextToSpeech.runAndWait()
+                if(stop):
+                    break
+        #Repition part starts (repeat function was defined earlier)
+        
+        TextToSpeech.say("Do you want me to repeat?")
+        TextToSpeech.runAndWait()
+        with sr.Microphone() as source:
             r.adjust_for_ambient_noise(source)
             print("Listening...")
             audio = r.listen(source)
-            heard = r.recognize_google(audio)
-    if heard == "yes":
-        print("You said, yes")
-        splitted_words = text.split()
-        if len(splitted_words)%2 == 1:
-            splitted_words += ' '
-        word_pairs = {}
-        p = 0
-        list_pairs = []
-        for word in splitted_words:
-            p += 1
-            if p % 2 == 1:
-                list_pairs.append(word)
-                print(list_pairs)
-            else:
-                list_pairs.append(word)
-                print(list_pairs)
-                word_pairs[p//2] = list_pairs
-                list_pairs = []
-        def repeatwice(dictionary):
-            for number,pair in dictionary.items():
-                TextToSpeech.say(pair[0])
-                TextToSpeech.runAndWait()
-                TextToSpeech.say(pair[1])
-                TextToSpeech.runAndWait()
-                TextToSpeech.say(pair[0])
-                TextToSpeech.runAndWait()
-                TextToSpeech.say(pair[1])
-                TextToSpeech.runAndWait()
-                if (stop):
-                    break
-        TextToSpeech.setProperty("rate", 200)  
-        repeatwice(word_pairs)
-    else:
-        print("You said, no") #Dictation by reading the text line by line
-        global lines
-        lines = text.split("\n")
-        for line in lines:
-            TextToSpeech.say(line)
-            TextToSpeech.runAndWait()
-            if(stop):
+        while stoploop:
+            repet = r.recognize_google(audio).lower()
+            if repet == "yes":
+                print("You said, "+repet)
+                for num in lines:
+                    i += 1
+                    dictionary[i] = num
+                print(dictionary)
+                repeat()
+            elif repet == "no":
+                print("You said, "+repet)
                 break
-    #Repition part starts (repeat function was defined earlier)
-    
-    TextToSpeech.say("Do you want me to repeat?")
-    TextToSpeech.runAndWait()
-    with sr.Microphone() as source:
-        r.adjust_for_ambient_noise(source)
-        print("Listening...")
-        audio = r.listen(source)
-    while stoploop:
-        repet = r.recognize_google(audio).lower()
-        if repet == "yes":
-            print("You said, "+repet)
-            for num in lines:
-                i += 1
-                dictionary[i] = num
-            print(dictionary)
-            repeat()
-        elif repet == "no":
-            print("You said, "+repet)
-            break
     TextToSpeech.say("Ok")
     TextToSpeech.runAndWait()
 TextToSpeech.say("No Problem. Thank You for using Text Dictator")
