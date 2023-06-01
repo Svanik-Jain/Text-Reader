@@ -5,10 +5,9 @@ import pyttsx3
 from tkinter import *
 from tkinter import filedialog as fd
 import speech_recognition as sr
-
 # VARIABLES
 TextToSpeech = pyttsx3.init()
-TextToSpeech.setProperty("rate", 150)  # SLOWS DOWN SPEED OF READER
+TextToSpeech.setProperty("rate", 160)  # SLOWS DOWN SPEED OF READER
 stop = False
 dictionary = {}
 i = 0
@@ -18,7 +17,6 @@ r= sr.Recognizer()
 reread = ''
 stoploop = True
 text = ''
-
 # OPENS FILE DIALOG TO SELECT PDF
 TextToSpeech.say("Welcome to text dictator!")
 TextToSpeech.runAndWait()
@@ -32,19 +30,18 @@ file_path = fd.askopenfilename(
 AskPath.destroy()
 AskPath.mainloop()
 reader = PdfReader(file_path)
-
 # THIS FUNCTION WILL ALLOW AS TO END THE CODE BY PRESSING CTRL+C
 def stopTheCode(signal,frame):
     global stop
     stop = True
 signal.signal(signal.SIGINT, stopTheCode)
-
 # FUNCTION TO REPEAT LINES
 def repeat():
     global reread
     global stoploop
     stoploop = True
     while stoploop: #while repetition part is not to be stopped, it keeps on running
+        TextToSpeech.setProperty("rate", 160)
         TextToSpeech.say("Which line do you want me to repeat?")
         TextToSpeech.runAndWait()
         with sr.Microphone() as source:
@@ -57,6 +54,7 @@ def repeat():
                 print("You said, "+reread)
                 stoploop = False #ends this loop if user does not want anything to be re-read
         else:
+            TextToSpeech.setProperty("rate", 130)
             global readon #In case 2 more lines are to be read out
             readon = 'yes'
             for number,sentence in list(dictionary.items()):
@@ -88,7 +86,6 @@ def repeat():
                     except:
                         TextToSpeech.say("I'll repeat."+"\n"+dictionary[number])
                         TextToSpeech.runAndWait()
-
 #This is where the actual code starts.
 global readpages #While this is true, program keeps asking which page number is to be read
 readpages = True
@@ -137,6 +134,7 @@ while readpages:
                 TextToSpeech.runAndWait()
                 print('You said,',heard)
     if readpages:
+        TextToSpeech.setProperty("rate", 160)
         TextToSpeech.say("Do you want me to repeat a pair of words twice?") #Dictation with pair of words read twice
         TextToSpeech.runAndWait()
         with sr.Microphone() as source:
@@ -181,12 +179,13 @@ while readpages:
             global lines
             lines = text.split("\n")
             for line in lines:
+                TextToSpeech.setProperty("rate", 130)
                 TextToSpeech.say(line)
                 TextToSpeech.runAndWait()
                 if(stop):
                     break
         #Repition part starts (repeat function was defined earlier)
-        
+        TextToSpeech.setProperty("rate", 160)
         TextToSpeech.say("Do you want me to repeat?")
         TextToSpeech.runAndWait()
         with sr.Microphone() as source:
