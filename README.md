@@ -94,6 +94,4 @@ Svanik Jain,
 Aadi Nigam,
 Sanidhya Gupta,
 Maulik Gupta,
-Supraj,
-Vaibhav Sai,
-Sidharth Ganguly
+Supraj
