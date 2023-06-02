@@ -17,6 +17,7 @@ r= sr.Recognizer()
 reread = ''
 stoploop = True
 text = ''
+lines = ''
 # OPENS FILE DIALOG TO SELECT PDF
 TextToSpeech.say("Welcome to text dictator!")
 TextToSpeech.runAndWait()
@@ -176,7 +177,6 @@ while readpages:
             repeatwice(word_pairs)
         else:
             print("You said, no") #Dictation by reading the text line by line
-            global lines
             lines = text.split("\n")
             for line in lines:
                 TextToSpeech.setProperty("rate", 130)
